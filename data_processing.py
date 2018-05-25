@@ -9,6 +9,7 @@ from sklearn.feature_selection import SelectKBest
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import Imputer
 
+
 # Given a Series object of numeric data, normalize it
 def process_data(df):
     for col in df.columns:
@@ -46,19 +47,10 @@ def encode_categorical_data(feature):
 def main():
     # Load the file and prepare the data for scoring
     file_path = 'train.csv'
-    data = pd.read_csv('train.csv', index_col = 'PassengerId')
-    processed_data = process_data(data.drop(['Survived', 'Name', 'Cabin'], axis=1))
-
-    # Score the features based on univariate predictive power
-    selector = SelectKBest(k=3)
-    selector.fit(processed_data, data['Survived'])
-    scores = selector.scores_
-    for i, col in enumerate(processed_data):
-        print(col, scores[i])
-
-    x_new = selector.transform(processed_data)
-    x_new_df = pd.DataFrame(x_new)
-    print(x_new_df.head(3))
+    data = pd.read_csv(file_path, index_col = 'PassengerId')
+    p_data = process_data(data.drop(['Survived', 'Name', 'Cabin'], axis=1))
+    p_data['Survived'] = data['Survived']
+    p_data.to_csv('testing_data.csv')
     return
 
 
