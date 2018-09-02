@@ -9,8 +9,11 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 
 
-# Train the logistic regression model
 def train_log_reg(X, y):
+    """
+    Trains a log_reg on the data set. Uses 30% of the training data as
+    validation.
+    """
     # Set a random seed and reshape the data
     np.random.seed(42)
     y.ravel()

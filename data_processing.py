@@ -10,8 +10,11 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import Imputer
 
 
-# Given a Series object of numeric data, normalize it
 def process_data(df):
+    """
+    Noramlizes/encodes numeric/categorical data in the given df.
+    Uses two helper functions (normalize_numeric_data & encode_categorical_data)
+    """
     for col in df.columns:
         if df[col].dtype == 'float64' or df[col].dtype == 'int64':
             df[col] = normalize_numeric_data(df[col])
@@ -20,8 +23,11 @@ def process_data(df):
     return df
 
 
-# Reshape and normalize numeric data
 def normalize_numeric_data(feature):
+    """
+    Helper function for process_data. Normalizes numeric data,
+    centered on 0 with range of [-1, 1]
+    """
     # Reshape data for imputing and normalizing
     feature = feature.values.reshape(-1, 1)
 
@@ -35,8 +41,11 @@ def normalize_numeric_data(feature):
     return feature
 
 
-# Encode and replace values in categorical data
 def encode_categorical_data(feature):
+    """
+    Helper function for process_data
+    Encode and replace values in categorical data
+    """
     # Store list of unique values and replace them accordingly
     values = [val for val in feature.unique()]
     encoding = list(range(0, len(values)))
